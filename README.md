@@ -1,39 +1,47 @@
-# Nova 2.0 – Mini Chatbot with LoRA
+# Omega LoRA Fine-Tuning
 
-This repository showcases a lean version of “Nova”, a GPT‐style conversational AI fine‐tuned with LoRA adapters.
+This repository contains the code and data for fine-tuning DistilGPT-2 with LoRA adapters to create **Omega**, a lightweight conversational AI.
 
-## Project Structure
+## Setup
 
-- `environment.yml` &ndash; Conda environment spec
-- `check_gpu.py` &ndash; Verify GPU availability
-- `test_distilgpt2.py` &ndash; Load and generate sample text
-- `chat_data.json` &ndash; Tiny chat dataset
-- `train_lora.py` &ndash; Script to fine‐tune `distilgpt2` with LoRA
-- `chat.py` &ndash; Interactive chat client using the fine‐tuned model
-
-## Getting Started
-
-1. Clone this repo and navigate into it.
-2. Create and activate the Conda env:
+1. **Clone repo**  
    ```bash
-   conda env create -f environment.yml
-   conda activate tinychat
-   ```
-3. Verify GPU:
-   ```bash
-   python check_gpu.py
-   ```
-4. Test inference:
-   ```bash
-   python test_distilgpt2.py
-   ```
-5. Train your mini‐chatbot:
-   ```bash
-   accelerate launch train_lora.py
-   ```
-6. Chat with your model:
-   ```bash
-   python chat.py
+   git clone <your-repo-url>
+   cd <repo-folder>
    ```
 
-Feel free to fork and extend this project for your own experiments!
+2. **Create Conda environment**  
+   ```bash
+   conda create -n omega python=3.8 -y
+   conda activate omega
+   ```
+
+3. **Install dependencies**  
+   ```bash
+   conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch -y
+   pip install transformers datasets accelerate peft
+   ```
+
+4. **Prepare data**  
+   - Edit `chat_data.json` with your prompt/response pairs.
+
+## Fine-Tuning
+
+Run the LoRA training script:
+```bash
+accelerate launch train_lora.py
+```
+Model and tokenizer will be saved to `omega_lora/`.
+
+## Chat
+
+Interact with the model:
+```bash
+python chat.py
+```
+
+## Next Steps
+
+- Expand `chat_data.json` to more examples.
+- Tune hyperparameters in `train_lora.py`.
+- Scale up on cloud GPUs for larger models and datasets.
