@@ -1,0 +1,30 @@
+Project Omega – LoRA Fine-Tuning Summary
+==============================================
+
+1. Conda Environment Setup
+   - Created and renamed the Conda environment to `omega`.
+   - Installed Python 3.8 dependencies: torch, torchvision, torchaudio, cudatoolkit=11.8.
+
+2. GPU Verification
+   - Verified CUDA availability on RTX 4070.
+   - Installed and tested `distilgpt2` inference locally.
+
+3. Train Script (`train_lora.py`)
+   - Load `distilgpt2` with LoRA adapters.
+   - Mask prompt tokens in loss.
+   - Pad/truncate sequences to 64 tokens.
+   - Disable Torch Dynamo/Inductor for stability.
+   - Fine-tuned 5 epochs @ 1e-5 LR.
+
+4. Fine-Tuning Runs
+   - Completed without errors.
+   - Training loss ~5.0 on three examples.
+
+5. Chat Interface (`chat.py`)
+   - Maintains turn-based chat with EOS tokens.
+   - Sampling: `top_p=0.9`, `temperature=0.8`.
+
+6. Next Steps
+   - Expand `chat_data.json` to 50–100 examples.
+   - Curate logs and rerun LoRA tuning.
+   - Move to cloud GPUs for larger models/datasets.
